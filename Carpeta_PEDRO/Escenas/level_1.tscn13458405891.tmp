@@ -1,0 +1,213 @@
+[gd_scene load_steps=25 format=3 uid="uid://ckqiqp8jtayqq"]
+
+[ext_resource type="Material" uid="uid://bsqpix02bhkvr" path="res://Materiales/materiales.tres" id="1_3hls8"]
+[ext_resource type="Material" uid="uid://7xk684bd6i6j" path="res://Materiales/Edificios.tres" id="1_hbghi"]
+[ext_resource type="PackedScene" uid="uid://bqlewellkdstj" path="res://Escenas/character_body_3d.tscn" id="3_gjwfl"]
+[ext_resource type="ArrayMesh" uid="uid://c8y058o8q0bos" path="res://Diseños/Calisma2.obj" id="3_nthp5"]
+[ext_resource type="Script" uid="uid://bg34klxbyu7rj" path="res://Escenas/graph_manager.gd" id="5_lh4tq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ilcil"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_3hls8"]
+sky_material = SubResource("ProceduralSkyMaterial_ilcil")
+
+[sub_resource type="Environment" id="Environment_hbghi"]
+background_mode = 2
+sky = SubResource("Sky_3hls8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3hls8"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hbghi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hoeqm"]
+size = Vector3(2.3685913, 40.009705, 3.022461)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lh4tq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7kdt"]
+size = Vector3(31.405518, 19.362854, 15.605682)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hbghi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cku01"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hn12h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w34nr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j7kpp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n1v2s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ihfcg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nxg33"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bjebc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5rr72"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1slf1"]
+
+[node name="Level1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hbghi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.55333245, -0.5446645, 0.63020915, -0.408148, 0.83682734, 0.36487675, -0.7261118, -0.055320468, -0.68534744, 20.166386, 76.460014, -26.929203)
+light_color = Color(1, 1, 0.6313726, 1)
+shadow_enabled = true
+
+[node name="Plano" type="MeshInstance3D" parent="."]
+transform = Transform3D(80.93477, 0, 0, 0, 2.7, 0, 0, 0, 40.783276, -0.3649509, 0.14206696, -0.2014103)
+material_override = ExtResource("1_3hls8")
+mesh = SubResource("PlaneMesh_3hls8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plano"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plano/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4995, 0.5)
+shape = SubResource("WorldBoundaryShape3D_hbghi")
+
+[node name="Torre1" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torre1" groups=["building"]]
+transform = Transform3D(0.0067169326, 0, 0.75378144, 0, 2.2505245, 0, -0.44232467, 0, 0.011446568, 66.39481, 10.039793, 1.4273243)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre1/MeshInstance3D"]
+transform = Transform3D(0.41666663, 0, 0, 0, 0.024931436, 0, 0, 0, 0.33333334, -29.166664, -0.50136817, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre1/MeshInstance3D/Area3D"]
+transform = Transform3D(0.9999978, 0, 0, 0, 0.9999978, 0, 0, 0, 1, 70.00723, 20.187832, -0.025878906)
+shape = SubResource("BoxShape3D_hoeqm")
+
+[node name="Torre2" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torre2" groups=["building"]]
+transform = Transform3D(0.22017804, 0, 0, 0, 2.0253618, 0, 0, 0, 0.6076125, 38, 8.751564, -24)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre2/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre2/MeshInstance3D/Area3D"]
+shape = SubResource("BoxShape3D_lh4tq")
+
+[node name="Torre3" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Torre3" groups=["building"]]
+transform = Transform3D(0.73933, 0, 0, 0, 3.8641067, 0, 0, 0, 0.9349323, 37.59271, 16.753748, 29.110542)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre3/MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre3/MeshInstance3D6/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000641, 0.10827637, 5.430024, -0.087999344)
+shape = SubResource("BoxShape3D_n7kdt")
+
+[node name="Label3D" type="Label3D" parent="Torre3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.934765, 82.41506, 30.236946)
+text = "HOLA COMO ESTA"
+font_size = 100
+
+[node name="Torre4" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_hbghi")
+continuous_cd = true
+
+[node name="torre4" type="MeshInstance3D" parent="Torre4" groups=["building"]]
+transform = Transform3D(-0.51709425, 2.4887692e-07, -3.3944954e-16, 4.5200977e-08, 2.8465142, -0.012402983, -6.619369e-10, -0.041685242, -0.84694934, 15, 12.192036, 1)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre4/torre4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre4/torre4/Area3D"]
+shape = SubResource("BoxShape3D_cku01")
+
+[node name="Torre5" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Torre5" groups=["building"]]
+transform = Transform3D(4, 0, 0, 0, 27.38088, 0, 0, 0, 3.9, -1, 13.38088, -26.699999)
+material_override = ExtResource("1_hbghi")
+mesh = SubResource("BoxMesh_hn12h")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre5/MeshInstance3D4"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre5/MeshInstance3D4/Area3D"]
+shape = SubResource("BoxShape3D_w34nr")
+
+[node name="Torre6" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Torre6" groups=["building"]]
+transform = Transform3D(4, 0, 0, 0, 35.51708, 0, 0, 0, 4.59, 1, 18.034157, 27.77)
+material_override = ExtResource("1_hbghi")
+mesh = SubResource("BoxMesh_j7kpp")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre6/MeshInstance3D8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre6/MeshInstance3D8/Area3D"]
+shape = SubResource("BoxShape3D_n1v2s")
+
+[node name="Torre7" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Torre7" groups=["building"]]
+transform = Transform3D(4.0039997, 0, 0, 0, 17.245083, 0, 0, 0, 4.42, -41, 8.956486, -27)
+material_override = ExtResource("1_hbghi")
+mesh = SubResource("BoxMesh_ihfcg")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre7/MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre7/MeshInstance3D5/Area3D"]
+shape = SubResource("BoxShape3D_nxg33")
+
+[node name="Torre8" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Torre8" groups=["building"]]
+transform = Transform3D(3.3600001, 0, 0, 0, 47.925304, 0, 0, 0, 5.6848006, -39, 24.925304, 24.575996)
+material_override = ExtResource("1_hbghi")
+mesh = SubResource("BoxMesh_bjebc")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre8/MeshInstance3D9"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre8/MeshInstance3D9/Area3D"]
+
+[node name="Torre9" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Torre9" groups=["building"]]
+transform = Transform3D(4.1000004, 0, 0, 0, 36.270767, 0, 0, 0, 2.8500001, -69, 18.144386, 5)
+material_override = ExtResource("1_hbghi")
+mesh = SubResource("BoxMesh_5rr72")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre9/MeshInstance3D10"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre9/MeshInstance3D10/Area3D"]
+shape = SubResource("BoxShape3D_1slf1")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_gjwfl")]
+transform = Transform3D(1.243214, 0, 0, 0, 1.627319, 0, 0, 0, 1.5806298, 69.99843, 46.77648, -0.03752899)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(-3.515998e-08, 0, 0.8043667, 0, 0.6145077, 0, -0.6326592, 0, -2.765441e-08, 5.0931816, 0.15320206, 0.33623308)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="GraphManager" type="Node3D" parent="."]
+script = ExtResource("5_lh4tq")

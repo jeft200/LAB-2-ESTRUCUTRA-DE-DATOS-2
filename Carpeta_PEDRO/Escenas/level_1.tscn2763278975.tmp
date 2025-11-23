@@ -1,0 +1,286 @@
+[gd_scene load_steps=29 format=3 uid="uid://ckqiqp8jtayqq"]
+
+[ext_resource type="Material" uid="uid://bsqpix02bhkvr" path="res://Materiales/materiales.tres" id="1_3hls8"]
+[ext_resource type="Material" uid="uid://7xk684bd6i6j" path="res://Materiales/Edificios.tres" id="1_hbghi"]
+[ext_resource type="PackedScene" uid="uid://bqlewellkdstj" path="res://Escenas/character_body_3d.tscn" id="3_gjwfl"]
+[ext_resource type="ArrayMesh" uid="uid://c8y058o8q0bos" path="res://Diseños/Calisma2.obj" id="3_nthp5"]
+[ext_resource type="ArrayMesh" uid="uid://cljmynvtptj0" path="res://Diseños/Simple Building.obj" id="4_n7kdt"]
+[ext_resource type="ArrayMesh" uid="uid://blpfkhi8tclk4" path="res://Diseños/building_04.obj" id="5_cku01"]
+[ext_resource type="Script" uid="uid://bg34klxbyu7rj" path="res://Scripts/graph_manager.gd" id="5_lh4tq"]
+[ext_resource type="Script" uid="uid://vhke0hu30xe1" path="res://Scripts/area_3d (2).gd" id="7_n1v2s"]
+[ext_resource type="Script" uid="uid://dhsh25s43beub" path="res://Scripts/area_3d (3).gd" id="8_1slf1"]
+[ext_resource type="Script" uid="uid://b7s4rbry7xcld" path="res://Scripts/area_3d (4).gd" id="9_t7iu2"]
+[ext_resource type="Script" uid="uid://bnyqnobhmtox" path="res://Scripts/area_3d (5).gd" id="10_fwgov"]
+[ext_resource type="Script" uid="uid://do8pl6ty7ugii" path="res://Scripts/area_3d (6).gd" id="11_fwgov"]
+[ext_resource type="Script" uid="uid://c8umm0klltbux" path="res://Scripts/area_3d.gd" id="11_t7iu2"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_w34nr"]
+
+[sub_resource type="Sky" id="Sky_n1v2s"]
+sky_material = SubResource("PhysicalSkyMaterial_w34nr")
+process_mode = 2
+
+[sub_resource type="Environment" id="Environment_hbghi"]
+background_mode = 2
+sky = SubResource("Sky_n1v2s")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3hls8"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hbghi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hoeqm"]
+size = Vector3(75.77408, 846.12537, 40.468803)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lh4tq"]
+size = Vector3(14.588928, 19.55172, 14.357422)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7kdt"]
+size = Vector3(31.405518, 19.362854, 15.605682)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hbghi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cku01"]
+size = Vector3(6.0803833, 6.0151978, 6.508606)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w34nr"]
+size = Vector3(30.787811, 19.482513, 15.003784)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n1v2s"]
+size = Vector3(14.511108, 19.399933, 14.9730835)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nxg33"]
+size = Vector3(15.245544, 18.592407, 14.618774)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t7iu2"]
+size = Vector3(31.62877, 19.485077, 15.821136)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1slf1"]
+size = Vector3(15.820679, 19.562973, 14.088104)
+
+[node name="Level1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hbghi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.55333245, -0.5446645, 0.63020915, -0.408148, 0.83682734, 0.36487675, -0.7261118, -0.055320468, -0.68534744, 20.166386, 76.460014, -26.929203)
+light_color = Color(1, 1, 0.6313726, 1)
+shadow_enabled = true
+
+[node name="Plano" type="MeshInstance3D" parent="."]
+transform = Transform3D(14133.724, 0, 0, 0, 2.7, 0, 0, 0, 13304.528, -0.3649509, 0.14206696, -0.2014103)
+material_override = ExtResource("1_3hls8")
+mesh = SubResource("PlaneMesh_3hls8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plano"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plano/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4995, 0.5)
+shape = SubResource("WorldBoundaryShape3D_hbghi")
+
+[node name="Torre1" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torre1" groups=["building"]]
+transform = Transform3D(0.0067169326, 0, 0.75378144, 0, 2.2505245, 0, -0.44232467, 0, 0.011446568, 66.39377, 10.058506, 1.4340372)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre1/MeshInstance3D"]
+transform = Transform3D(0.4166666, 0, -9.313226e-10, 0, 0.024931436, 0, 0, 0, 0.3333333, -29.224895, -1.7894533, -2.2502365)
+script = ExtResource("11_t7iu2")
+node_id = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre1/MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1.0001016, 0, -1.3038516e-08, 0, 1, 71.06671, 272.56427, 6.214325)
+shape = SubResource("BoxShape3D_hoeqm")
+
+[node name="Label3D" type="Label3D" parent="Torre1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2208, 51.72236, 1.1153941)
+visible = false
+text = "HOLA COMO ESTAS"
+
+[node name="Torre2" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torre2" groups=["building"]]
+transform = Transform3D(-0.03144099, 0, -1.1665646, 0, 2.0151727, 0, 0.9655765, 0, -0.037985537, 38, -0.0384655, -24)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("4_n7kdt")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre2/MeshInstance3D"]
+script = ExtResource("11_t7iu2")
+node_id = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre2/MeshInstance3D/Area3D"]
+transform = Transform3D(0.999886, 0, 0, 0, 1, 0, 2.0861626e-07, 0, 0.9999999, -0.10522652, 9.866614, -0.00023078918)
+shape = SubResource("BoxShape3D_lh4tq")
+
+[node name="Label3D" type="Label3D" parent="Torre2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.9244, 44.820282, -26.868244)
+visible = false
+text = "hOLA COMO ESTAS"
+
+[node name="Torre3" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Torre3" groups=["building"]]
+transform = Transform3D(0.73933, 0, 0, 0, 3.8641067, 0, 0, 0, 0.9349323, 37.522724, 16.75374, 27.245071)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre3/MeshInstance3D6"]
+script = ExtResource("11_t7iu2")
+node_id = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre3/MeshInstance3D6/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000641, 0.10827637, 5.430024, -0.087999344)
+shape = SubResource("BoxShape3D_n7kdt")
+
+[node name="Label3D" type="Label3D" parent="Torre3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.934765, 82.41506, 30.236946)
+visible = false
+text = "HOLA COMO ESTA"
+font_size = 100
+
+[node name="Torre4" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_hbghi")
+continuous_cd = true
+
+[node name="torre4" type="MeshInstance3D" parent="Torre4" groups=["building"]]
+transform = Transform3D(-1.6669852, 2.7184774e-07, 0, 1.4572026e-07, 3.1093152, -0.02593935, -1.8872313e-09, -0.04026892, -2.002875, 15.1231365, 1.677084, 0.8181648)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("5_cku01")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre4/torre4"]
+script = ExtResource("7_n1v2s")
+node_id = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre4/torre4/Area3D"]
+transform = Transform3D(1.0000002, -7.0915496e-15, 0, 4.707172e-15, 1, 0, 3.519407e-14, 3.1106174e-07, 1, 0.19090366, 2.5364685, 0.3763733)
+shape = SubResource("BoxShape3D_cku01")
+
+[node name="Label3D" type="Label3D" parent="Torre4/torre4"]
+transform = Transform3D(1.0000002, -7.511353e-15, 0, 4.4131365e-15, 1, 0, 0, 3.7252903e-09, 1, 9.536743e-07, 6.406181, -0.12879986)
+visible = false
+text = "hOLA COMO ESTÁS"
+
+[node name="Torre5" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Torre5" groups=["building"]]
+transform = Transform3D(0.5411226, 0, 0, 0, 3.0963566, 0, 0, 0, 1.0089647, -0.89730453, 13.468809, -26.668411)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre5/MeshInstance3D4"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("8_1slf1")
+node_id = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre5/MeshInstance3D4/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.285663, 5.4767003, 0.38350868)
+shape = SubResource("BoxShape3D_w34nr")
+
+[node name="Label3D" type="Label3D" parent="Torre5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.84094524, 65.54247, -27.199196)
+visible = false
+text = "hola como estas"
+
+[node name="Torre6" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Torre6" groups=["building"]]
+transform = Transform3D(1.1010084, 0, 0, 0, 1.5485708, 0, 0, 0, 0.736402, 1, -0.037460327, 27.77)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("4_n7kdt")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre6/MeshInstance3D8"]
+script = ExtResource("9_t7iu2")
+node_id = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre6/MeshInstance3D8/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99993634, 0, 0, 0, 0.9999999, -0.04444945, 10.032988, 0.34065247)
+shape = SubResource("BoxShape3D_n1v2s")
+
+[node name="Label3D" type="Label3D" parent="Torre6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.171257, 26.640137)
+visible = false
+text = "Hola como estás"
+
+[node name="Torre7" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Torre7" groups=["building"]]
+transform = Transform3D(0.049645916, -2.4700103e-11, 1.508118, -0.015376594, 1.1605743, 0.0008954243, -1.1337961, -0.015739769, 0.066024326, -36.57109, -0.71694565, -27)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("4_n7kdt")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre7/MeshInstance3D5"]
+script = ExtResource("10_fwgov")
+node_id = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre7/MeshInstance3D5/Area3D"]
+transform = Transform3D(0.9999977, -2.3189932e-07, 1.527369e-07, 1.3411045e-07, 0.99999964, -1.8510036e-08, -1.3671815e-06, -7.858034e-09, 1, -0.11312103, 10.352843, -0.026563644)
+shape = SubResource("BoxShape3D_nxg33")
+
+[node name="Label3D" type="Label3D" parent="Torre7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.83551, 27.350475, -27.172312)
+visible = false
+text = "HOLA COMO ESTAS"
+
+[node name="Torre8" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Torre8" groups=["building"]]
+transform = Transform3D(0.65242505, 0, 0, 0, 2.4553008, 0, 0, 0, 1.122203, -39.453484, 10.915167, 24.627253)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("3_nthp5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre8/MeshInstance3D9"]
+script = ExtResource("11_fwgov")
+node_id = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre8/MeshInstance3D9/Area3D"]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000004, 0.017536163, 5.4530663, 0.17108536)
+shape = SubResource("BoxShape3D_t7iu2")
+
+[node name="Label3D" type="Label3D" parent="Torre8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.928097, 51.105156, 25.095343)
+visible = false
+text = "HOLA COMO ESTAS"
+
+[node name="Torre9" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Torre9" groups=["building"]]
+transform = Transform3D(1.1096725, 0, 0, 0, 3.6468265, 0, 0, 0, 1.5147151, -65.560486, 0.014759064, -2.5035477)
+material_override = ExtResource("1_hbghi")
+mesh = ExtResource("4_n7kdt")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Torre9/MeshInstance3D10"]
+script = ExtResource("11_t7iu2")
+node_id = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Torre9/MeshInstance3D10/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000029, -0.16668701, 9.92965, -0.23660958)
+shape = SubResource("BoxShape3D_1slf1")
+
+[node name="Label3D" type="Label3D" parent="Torre9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.09868, 79.468956, -2.2397032)
+visible = false
+text = "HOLA COMO ESTAS"
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_gjwfl")]
+transform = Transform3D(1.243214, 0, 0, 0, 1.627319, 0, 0, 0, 1.5806298, 69.99843, 48.09847, -0.03752899)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(-3.515998e-08, 0, 0.8043667, 0, 0.6145077, 0, -0.6326592, 0, -2.765441e-08, 5.0931816, 0.15320206, 0.33623308)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="GraphManager" type="Node3D" parent="."]
+script = ExtResource("5_lh4tq")
