@@ -1,0 +1,103 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3nl4vuu85k53"]
+
+[ext_resource type="Script" uid="uid://dk6ox5m4oy5gh" path="res://dron.gd" id="1_nf367"]
+[ext_resource type="Texture2D" uid="uid://dlkgjo7x3t3xm" path="res://personajes/Dron/Diseño_sin_título__2_-removebg-preview.png" id="2_brtpk"]
+[ext_resource type="Shader" uid="uid://dd3m6fk3vle3f" path="res://Escenas/canva.gdshader" id="2_s3o4p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3o4p"]
+atlas = ExtResource("2_brtpk")
+region = Rect2(0, 0, 213, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy5j0"]
+atlas = ExtResource("2_brtpk")
+region = Rect2(213, 0, 213, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko0eo"]
+atlas = ExtResource("2_brtpk")
+region = Rect2(0, 195, 213, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88by5"]
+atlas = ExtResource("2_brtpk")
+region = Rect2(213, 195, 213, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0v4u"]
+atlas = ExtResource("2_brtpk")
+region = Rect2(0, 390, 213, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edops"]
+atlas = ExtResource("2_brtpk")
+region = Rect2(213, 390, 213, 195)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_04804"]
+animations = [{
+"frames": [{
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_s3o4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy5j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko0eo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88by5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0v4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edops")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_brtpk"]
+radius = 100.717
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oy5j0"]
+shader = ExtResource("2_s3o4p")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqmsc"]
+radius = 230.098
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(1, 1)
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_nf367")
+color_alerta = Color(1, 0, 0, 0.603922)
+color_normal = Color(0.999983, 0.870255, 0.848222, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-5, 3)
+sprite_frames = SubResource("SpriteFrames_04804")
+animation = &"flying"
+frame_progress = 0.391297
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_brtpk")
+
+[node name="VisionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="VisionArea"]
+material = SubResource("ShaderMaterial_oy5j0")
+offset_left = -204.0
+offset_top = -192.0
+offset_right = 203.0
+offset_bottom = 204.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="VisionArea"]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(2, 2)
+shape = SubResource("CircleShape2D_xqmsc")
+
+[node name="FiringPoint" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]

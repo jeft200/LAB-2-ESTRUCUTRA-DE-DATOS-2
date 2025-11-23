@@ -1,0 +1,14 @@
+~ start
+Narrador: Año 2303. Has sido despertado de tu cápsula de criosueño antes de lo previsto.
+
+Narrador: La nave transporta a los últimos sobrevivientes... y ahora tú eres la única persona despierta.
+
+Narrador: Los sistemas están fallando. La inteligencia central ha sido comprometida. Cada minuto cuenta.
+
+Narrador: Prepárate: tu misión comienza ahora.
+
+Narrador: Objetivo principal: abrir todas las puertas del sector de Tecnología.
+Narrador: Explora la zona, recoge las llaves correctas y habilita los accesos.
+
+Narrador: Antes de avanzar, selecciona el tipo de recorrido que deseas usar para las rutas del sistema:
+do get_tree().change_scene_to_file("res://Escenas/Tipo.tscn")
