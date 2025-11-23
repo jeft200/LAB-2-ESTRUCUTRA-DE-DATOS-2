@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wx5136r38bwu"
-path="res://.godot/imported/jugador.png-7831062882d06254bfb348508af8cf40.ctex"
+uid="uid://vgyoehbkfkf3"
+path="res://.godot/imported/atlas_walls_low-16x16.png-c971711dcbd386d905fe85097f8d15f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Carpeta_JOHA/imagenes/jugador.png"
-dest_files=["res://.godot/imported/jugador.png-7831062882d06254bfb348508af8cf40.ctex"]
+source_file="res://Carpeta_JOHA/imagenes/atlas_walls_low-16x16.png"
+dest_files=["res://.godot/imported/atlas_walls_low-16x16.png-c971711dcbd386d905fe85097f8d15f8.ctex"]
 
 [params]
 

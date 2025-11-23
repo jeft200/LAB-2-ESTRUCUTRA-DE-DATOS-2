@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvqvyrsh6phxo"
-path="res://.godot/imported/labe.png-cf92bf15b5c324c2495a9a2d0172db38.ctex"
+uid="uid://msjdmrhft4pr"
+path="res://.godot/imported/atlas_walls_high-16x32.png-f0c1d48d91580cf9c663040ee5e84bbf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Carpeta_JOHA/imagenes/labe.png"
-dest_files=["res://.godot/imported/labe.png-cf92bf15b5c324c2495a9a2d0172db38.ctex"]
+source_file="res://Carpeta_JOHA/imagenes/atlas_walls_high-16x32.png"
+dest_files=["res://.godot/imported/atlas_walls_high-16x32.png-f0c1d48d91580cf9c663040ee5e84bbf.ctex"]
 
 [params]
 
