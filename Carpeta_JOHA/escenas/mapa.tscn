@@ -100,9 +100,8 @@ polygon = PackedVector2Array(934, 467, 934, 377, 939, 373, 932, 370, 926, 371, 8
 position = Vector2(103, 398)
 
 [node name="Camera2D" type="Camera2D" parent="laberinto/Jugador"]
-position = Vector2(86, 43)
+position = Vector2(473, -64)
 ignore_rotation = false
-zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 script = ExtResource("3_s41wn")
 
