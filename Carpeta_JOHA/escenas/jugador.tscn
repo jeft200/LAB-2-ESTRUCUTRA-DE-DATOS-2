@@ -10,45 +10,6 @@
 radius = 8.0
 height = 22.0
 
-[sub_resource type="Animation" id="Animation_th2ev"]
-resource_name = "quieta"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_easq3")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.23333333, 0.33333334, 0.43333334, 0.53333336, 0.6333333, 0.73333335, 0.8333333, 0.9333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-}
-
 [sub_resource type="Animation" id="Animation_yvlo0"]
 length = 0.001
 tracks/0/type = "value"
@@ -90,6 +51,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_dfwrb"]
 resource_name = "correr"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -129,6 +91,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_bci0v"]
 resource_name = "deslizar"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -166,8 +129,49 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_th2ev"]
+resource_name = "quieta"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_easq3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.23333333, 0.33333334, 0.43333334, 0.53333336, 0.6333333, 0.73333335, 0.8333333, 0.9333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
 [sub_resource type="Animation" id="Animation_44fmi"]
 resource_name = "saltar"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -216,24 +220,23 @@ _data = {
 
 [node name="Jugador" type="Node2D"]
 
-[node name="jugadorAnimacion" type="CharacterBody2D" parent="."]
+[node name="jugador" type="CharacterBody2D" parent="."]
 script = ExtResource("1_7ii8e")
 
-[node name="Camera2D" type="Camera2D" parent="jugadorAnimacion"]
+[node name="Camera2D" type="Camera2D" parent="jugador"]
 position = Vector2(616, 542)
 zoom = Vector2(3, 3)
 
-[node name="Sprite2D" type="Sprite2D" parent="jugadorAnimacion"]
+[node name="Sprite2D" type="Sprite2D" parent="jugador"]
 position = Vector2(584, 632)
 texture = ExtResource("1_easq3")
-flip_h = true
 hframes = 11
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="jugadorAnimacion"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="jugador"]
 position = Vector2(585, 636)
 shape = SubResource("CapsuleShape2D_7ii8e")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="jugadorAnimacion"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="jugador"]
 libraries = {
 &"": SubResource("AnimationLibrary_dfwrb")
 }

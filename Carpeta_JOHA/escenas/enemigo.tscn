@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj6udlt14bv0v"]
+
+[ext_resource type="Script" uid="uid://h3j4ummha3n0" path="res://Carpeta_JOHA/escenas/character_body_2d.gd" id="1_ltlhy"]
+[ext_resource type="Texture2D" uid="uid://b2yt8o8q27nkh" path="res://Carpeta_JOHA/imagenes/big_demon_run_anim_f0.png" id="1_wvsbh"]
+[ext_resource type="Texture2D" uid="uid://cp606dfn5wvxc" path="res://Carpeta_JOHA/imagenes/big_demon_run_anim_f1.png" id="2_1vrw6"]
+[ext_resource type="Texture2D" uid="uid://c3lxvupm0qare" path="res://Carpeta_JOHA/imagenes/big_demon_run_anim_f2.png" id="3_ltlhy"]
+[ext_resource type="Texture2D" uid="uid://bgn7tarshlsax" path="res://Carpeta_JOHA/imagenes/big_demon_run_anim_f3.png" id="4_f4388"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1vrw6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wvsbh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1vrw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ltlhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f4388")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0672v"]
+radius = 5.0
+height = 14.0
+
+[node name="Enemigo" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_ltlhy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+position = Vector2(13.5, 12.5)
+scale = Vector2(0.84375006, 0.6944444)
+sprite_frames = SubResource("SpriteFrames_1vrw6")
+animation = &"caminar"
+frame = 1
+frame_progress = 0.68616456
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(14, 13)
+shape = SubResource("CapsuleShape2D_0672v")
