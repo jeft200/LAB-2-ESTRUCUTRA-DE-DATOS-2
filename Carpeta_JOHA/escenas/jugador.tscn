@@ -1,15 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://chn8fehmuqa68"]
+[gd_scene load_steps=6 format=3 uid="uid://1vq20chrntbd"]
 
-[ext_resource type="Script" uid="uid://d0wwkvckorqcj" path="res://escenas/jugador.gd" id="1_jpodt"]
-[ext_resource type="Texture2D" uid="uid://ufs74ckomsie" path="res://imagenes/017.png" id="2_jpodt"]
+[ext_resource type="Texture2D" uid="uid://c540ping6at18" path="res://Carpeta_JOHA/imagenes/Idle (32x32).png" id="1_easq3"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jpodt"]
-radius = 5.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ii8e"]
+radius = 9.0
 height = 22.0
 
-[sub_resource type="Animation" id="Animation_jpodt"]
-resource_name = "parada"
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_easq3"]
+resource_name = "new_animation"
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,10 +16,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jpodt")]
+"values": [ExtResource("1_easq3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -32,7 +31,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [11]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -41,13 +40,13 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.26666668, 0.53333336),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.3, 0.36666667, 0.4, 0.5, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 3, 4, 5, 7, 8, 9, 10]
 }
 
-[sub_resource type="Animation" id="Animation_njcx7"]
+[sub_resource type="Animation" id="Animation_7ii8e"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -59,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jpodt")]
+"values": [ExtResource("1_easq3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -71,7 +70,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [11]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -86,114 +85,31 @@ tracks/2/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_ovq70"]
-resource_name = "derecha"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.26666668, 0.56666666),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [6, 7, 8]
-}
-
-[sub_resource type="Animation" id="Animation_as36m"]
-resource_name = "atras"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_tml57"]
-resource_name = "izquierda"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.26666668, 0.56666666),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [6, 7, 8]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xutah"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_th2ev"]
 _data = {
-&"RESET": SubResource("Animation_njcx7"),
-&"atras": SubResource("Animation_as36m"),
-&"derecha": SubResource("Animation_ovq70"),
-&"izquierda": SubResource("Animation_tml57"),
-&"parada": SubResource("Animation_jpodt")
+&"RESET": SubResource("Animation_7ii8e"),
+&"new_animation": SubResource("Animation_easq3")
 }
 
-[node name="Jugador" type="CharacterBody2D"]
-script = ExtResource("1_jpodt")
+[node name="Jugador" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(27.639147, 32.74414)
-scale = Vector2(0.79627186, 0.7659912)
-texture = ExtResource("2_jpodt")
-flip_h = true
-hframes = 3
-vframes = 4
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(28, 33)
-shape = SubResource("CapsuleShape2D_jpodt")
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(619.00006, 634)
+scale = Vector2(0.984375, 1.0351558)
+texture = ExtResource("1_easq3")
+hframes = 11
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(619, 639)
+shape = SubResource("CapsuleShape2D_7ii8e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
 libraries = {
-&"": SubResource("AnimationLibrary_xutah")
+&"": SubResource("AnimationLibrary_th2ev")
 }
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(616, 542)
+zoom = Vector2(3, 3)
