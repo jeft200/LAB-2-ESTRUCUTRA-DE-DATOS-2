@@ -1,41 +1,95 @@
-[gd_scene load_steps=6 format=3 uid="uid://1vq20chrntbd"]
+[gd_scene load_steps=8 format=3 uid="uid://1vq20chrntbd"]
 
+[ext_resource type="Script" uid="uid://dh53kfbs3ci4d" path="res://Carpeta_JOHA/escenas/jugador.gd" id="1_7ii8e"]
 [ext_resource type="Texture2D" uid="uid://c540ping6at18" path="res://Carpeta_JOHA/imagenes/Idle (32x32).png" id="1_easq3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ii8e"]
-radius = 9.0
-height = 22.0
+radius = 8.0
+height = 20.0
 
 [sub_resource type="Animation" id="Animation_easq3"]
-length = 0.001
+resource_name = "solo"
+length = 0.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [ExtResource("1_easq3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/path = NodePath("Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [11]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.3, 0.33333334, 0.4, 0.46666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
 [sub_resource type="Animation" id="Animation_7ii8e"]
-resource_name = "quieto"
-length = 0.4
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_easq3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_th2ev"]
+resource_name = "caminar"
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -47,7 +101,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [12]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -56,30 +110,33 @@ tracks/1/path = NodePath("Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.53333336, 0.6, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_th2ev"]
 _data = {
-&"RESET": SubResource("Animation_easq3"),
-&"quieto": SubResource("Animation_7ii8e")
+&"RESET": SubResource("Animation_7ii8e"),
+&"caminar": SubResource("Animation_th2ev"),
+&"solo": SubResource("Animation_easq3")
 }
 
 [node name="Jugador" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_7ii8e")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(619.00006, 634)
-scale = Vector2(0.984375, 1.0351558)
+position = Vector2(617, 636)
+scale = Vector2(0.86718416, 0.8925782)
 texture = ExtResource("1_easq3")
+flip_h = true
 hframes = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(619, 639)
+position = Vector2(616, 639)
 shape = SubResource("CapsuleShape2D_7ii8e")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
