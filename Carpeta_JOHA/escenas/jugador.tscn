@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://chn8fehmuqa68"]
 
-[ext_resource type="Script" uid="uid://d0wwkvckorqcj" path="res://escenas/jugador.gd" id="1_jpodt"]
-[ext_resource type="Texture2D" uid="uid://ufs74ckomsie" path="res://imagenes/017.png" id="2_jpodt"]
+[ext_resource type="Script" uid="uid://d0wwkvckorqcj" path="res://Carpeta_JOHA/escenas/jugador.gd" id="1_jpodt"]
+[ext_resource type="Texture2D" uid="uid://ibrfvp4mrmhg" path="res://Carpeta_JOHA/imagenes/017.png" id="2_jpodt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jpodt"]
 radius = 5.0
