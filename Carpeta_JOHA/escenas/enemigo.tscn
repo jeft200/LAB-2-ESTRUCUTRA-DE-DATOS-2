@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bj6udlt14bv0v"]
+[gd_scene load_steps=9 format=3 uid="uid://bj6udlt14bv0v"]
 
 [ext_resource type="Texture2D" uid="uid://b2yt8o8q27nkh" path="res://Carpeta_JOHA/imagenes/big_demon_run_anim_f0.png" id="1_wvsbh"]
 [ext_resource type="Texture2D" uid="uid://cp606dfn5wvxc" path="res://Carpeta_JOHA/imagenes/big_demon_run_anim_f1.png" id="2_1vrw6"]
@@ -8,29 +8,100 @@
 [sub_resource type="GDScript" id="GDScript_1vrw6"]
 script/source = "extends CharacterBody2D
 
+# --- CONFIGURACIÓN ---
+@export var tiene_clave: bool = false # ¿Este fantasma desbloquea el camino?
+@export var velocidad: float = 50.0
+@export var puntos_de_patrulla: Array[NodePath] # Aquí arrastraremos los puntos en el editor
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+signal fantasma_muerto(es_clave) # Señal para avisar al Nivel
 
+# --- VARIABLES INTERNAS ---
+var gravedad = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+var objetivos: Array[Node2D] = []
+var indice_objetivo_actual = 0
+var esta_muriendo = false
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
+@onready var sprite = $CharacterBody2D/AnimatedSprite2D
+@onready var area_dano = $AreaDano # Asegúrate de que el nodo se llame así
+
+func _ready():
+	# Convertimos los NodePaths (rutas) en referencias reales a los Nodos
+	for ruta in puntos_de_patrulla:
+		var nodo = get_node_or_null(ruta)
+		if nodo:
+			objetivos.append(nodo)
+			
+	# Conectar señal para detectar colisión con el jugador
+	area_dano.body_entered.connect(_on_body_entered)
+
+func _physics_process(delta):
+	if esta_muriendo: return
+
+	# 1. Aplicar Gravedad
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y += gravedad * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
-	if direction:
-		velocity.x = direction * SPEED
+	# 2. Movimiento de Patrulla
+	if objetivos.size() > 0:
+		var objetivo = objetivos[indice_objetivo_actual]
+		
+		# Calcular dirección hacia el punto actual
+		var direccion = (objetivo.global_position - global_position).normalized()
+		
+		# Solo nos interesa movernos en X (es un plataformas, no vuela)
+		# Si tus fantasmas vuelan, quita la parte de \".x\" y usa el Vector2 completo
+		velocity.x = direccion.x * velocidad
+		
+		# Voltear el sprite según la dirección
+		if velocity.x > 0:
+			sprite.flip_h = false # Mirando derecha
+		elif velocity.x < 0:
+			sprite.flip_h = true # Mirando izquierda
+			
+		# Verificar si llegamos al punto (Distancia pequeña)
+		if global_position.distance_to(objetivo.global_position) < 15.0:
+			pasar_al_siguiente_punto()
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		# Si no hay puntos, se queda quieto o podrías poner lógica simple
+		velocity.x = move_toward(velocity.x, 0, velocidad)
 
 	move_and_slide()
+
+func pasar_al_siguiente_punto():
+	indice_objetivo_actual += 1
+	# Si llegamos al último punto, volvemos al primero (Bucle)
+	if indice_objetivo_actual >= objetivos.size():
+		indice_objetivo_actual = 0
+
+# Detectar contacto con el jugador
+func _on_body_entered(body):
+	if body.name == \"Jugador\": # Asegúrate que tu personaje se llame \"Jugador\" o usa grupos
+		# Lógica tipo Mario Bros:
+		# Si el jugador está cayendo y está por encima del fantasma -> Fantasma muere
+		if body.velocity.y > 0 and body.global_position.y < global_position.y:
+			body.velocity.y = -300 # Rebote del jugador
+			morir()
+		else:
+			# Si choca de lado -> Jugador muere (o pierde vida)
+			print(\"El jugador ha sido infectado!\")
+			# body.recibir_dano() # Descomenta si tienes función de daño en tu jugador
+
+func morir():
+	if esta_muriendo: return
+	esta_muriendo = true
+	
+	# Desactivar colisiones para que no siga haciendo daño
+	$CollisionShape2D.set_deferred(\"disabled\", true)
+	area_dano.set_deferred(\"monitoring\", false)
+	
+	# Emitir la señal importante para tu misión
+	emit_signal(\"fantasma_muerto\", tiene_clave)
+	
+	# Efecto visual simple (opcional: usar Tween o AnimationPlayer)
+	modulate = Color(1, 0, 0, 0) # Se vuelve rojo transparente
+	await get_tree().create_timer(0.2).timeout # Espera un momentito
+	
+	queue_free() # Adiós fantasma
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1vrw6"]
@@ -57,6 +128,9 @@ animations = [{
 radius = 9.0
 height = 28.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1vrw6"]
+radius = 34.132095
+
 [node name="Enemigo" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
@@ -74,3 +148,10 @@ frame_progress = 0.68616456
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(153, 246)
 shape = SubResource("CapsuleShape2D_0672v")
+
+[node name="Areadano" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(154, 248)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Areadano"]
+position = Vector2(-2, -2)
+shape = SubResource("CircleShape2D_1vrw6")
