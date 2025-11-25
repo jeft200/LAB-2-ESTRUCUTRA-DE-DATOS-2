@@ -29,31 +29,25 @@ func _ready():
 		var aabb := mesh_node.mesh.get_aabb()
 		var scale := mesh_node.scale
 
-		
 		var height := aabb.size.y * scale.y
-
-		
 		var base_y := mesh_node.position.y + aabb.position.y * scale.y
 		var top_y := base_y + height
-
-		
 		var sphere_y := top_y + 1.0
 		
-		var label_y := sphere_y + 0.5
+		# --- MODIFICACIÓN: Altura aumentada para separar texto de esfera ---
+		var label_y := sphere_y + 2.0
 
 		top_pos_local = Vector3(mesh_node.position.x, sphere_y, mesh_node.position.z)
 		label_pos_local = Vector3(mesh_node.position.x, label_y, mesh_node.position.z)
 	else:
-	
 		top_pos_local = Vector3(0, 5.0, 0)
-		label_pos_local = Vector3(0, 5.5, 0)
+		label_pos_local = Vector3(0, 7.0, 0) # Altura por defecto aumentada
 
-	
 	label3d.position = label_pos_local
 	
-	label3d.pixel_size = 0.005
+	# --- MODIFICACIÓN: Tamaño de texto mucho más grande ---
+	label3d.pixel_size = 0.02
 
-	
 	var palette := [
 		Color(1.0, 0.4, 0.8),  # rosa
 		Color(0.3, 0.8, 1.0),  # celeste
@@ -64,7 +58,6 @@ func _ready():
 	label3d.modulate = palette[idx]
 	label3d.visible = true
 
-	
 	if node_sphere == null:
 		var sphere_mesh := SphereMesh.new()
 		sphere_mesh.radius = 0.7
@@ -80,9 +73,7 @@ func _ready():
 
 		add_child(node_sphere)
 
-	
 	_create_solid_body(mesh_node)
-
 	_update_label()
 
 
@@ -104,27 +95,23 @@ func _create_solid_body(mesh_node: MeshInstance3D) -> void:
 	solid_body.name = "SolidBody"
 	add_child(solid_body)
 
-	
 	var aabb := mesh_node.mesh.get_aabb()
 	var scale := mesh_node.scale
 
 	var box := BoxShape3D.new()
-	
 	box.extents = aabb.size * 0.25 * scale
 
 	var col := CollisionShape3D.new()
 	col.shape = box
-
-	
 	col.position = mesh_node.position
 
 	solid_body.add_child(col)
 
 
 func get_connection_point() -> Vector3:
-	
 	if node_sphere != null:
 		return node_sphere.global_transform.origin
+	# --- MODIFICACIÓN: Corrección del error de sintaxis (if en una línea) ---
 	if label3d != null:
 		return label3d.global_transform.origin
 	return global_transform.origin

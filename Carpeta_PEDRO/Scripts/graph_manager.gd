@@ -5,6 +5,9 @@ var visited_sequence: Array = []   # node_id en el orden visitado
 var last_building: Area3D = null
 var player_edges: Array = []       # cada elemento: {u, v}
 
+# --- MODIFICACIÓN: Diccionario para evitar múltiples conexiones al mismo nodo ---
+var connected_nodes: Dictionary = {} 
+
 var rng := RandomNumberGenerator.new()
 var all_edges: Array = []          # cada elemento: {u, v, w}
 
@@ -75,12 +78,15 @@ func _build_all_edges() -> void:
 func _init_start_node() -> void:
 	if buildings.size() == 0:
 		return
-	# Elegir como nodo inicial el de menor node_id (por ej. nodo 1)
+	# Elegir como nodo inicial el de menor node_id
 	last_building = buildings[0]
 	for b in buildings:
 		if b.node_id < last_building.node_id:
 			last_building = b
 	print("Nodo inicial del cable dinámico:", last_building.node_id)
+	
+	# --- MODIFICACIÓN: Marcar nodo inicial como conectado ---
+	connected_nodes[last_building.node_id] = true
 
 
 func get_last_building() -> Area3D:
@@ -89,6 +95,11 @@ func get_last_building() -> Area3D:
 
 func register_visit(building: Area3D) -> void:
 	if building == null:
+		return
+
+	# --- MODIFICACIÓN: Restricción para no conectar un nodo ya visitado ---
+	if connected_nodes.has(building.node_id):
+		_set_status("⚠️ El nodo %d ya está conectado." % building.node_id)
 		return
 
 	# Registrar secuencia por node_id
@@ -117,6 +128,9 @@ func register_visit(building: Area3D) -> void:
 
 			if drawer and drawer.has_method("draw_connection"):
 				drawer.draw_connection(last_building, building)
+			
+			# --- MODIFICACIÓN: Marcar el nuevo nodo como conectado ---
+			connected_nodes[building.node_id] = true
 
 	last_building = building
 
@@ -132,8 +146,9 @@ func verify_solution() -> void:
 	for id in visited_sequence:
 		visited_dict[id] = true
 
-	if visited_dict.size() < n:
-		_set_status("Debes visitar todos los nodos antes de verificar.")
+	# Nota: Con la nueva restricción, si visited_sequence tiene n nodos, es que conectó todo el árbol
+	if connected_nodes.size() < n:
+		_set_status("Debes conectar todos los nodos antes de verificar (faltan %d)." % (n - connected_nodes.size()))
 		return
 
 	# Debe haber exactamente n-1 aristas para formar un árbol
@@ -242,13 +257,13 @@ func _set_status(msg: String) -> void:
 		status_label.text = msg
 	print(msg)
 
+# (Opcional) Implementación de Prim si prefieres usar esta en lugar de Kruskal arriba
 func compute_mst_edges_prim() -> Array:
 	var n = buildings.size()
 	if n == 0:
 		return []
 	var visited = {}
 	var edges = []
-	# start from smallest id
 	var start = buildings[0].node_id
 	for b in buildings:
 		if b.node_id < start:
